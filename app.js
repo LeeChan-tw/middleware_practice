@@ -2,6 +2,14 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+app.use((req, res, next) => {
+  const reqTime = new Date()
+  next(
+    console.log(`${reqTime.toLocaleString('en-US')} | ${req.method} from ${req.path}`)
+  )
+  
+})
+
 app.get('/', (req, res) => {
   res.send('列出全部 Todo')
 })
