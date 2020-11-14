@@ -4,10 +4,12 @@ const port = 3000
 
 app.use((req, res, next) => {
   const reqTime = new Date()
-  next(
-    console.log(`${reqTime.toLocaleString('en-US')} | ${req.method} from ${req.path}`)
-  )
-  
+  res.on('finish', () => {
+  const resTime = new Date()
+  const runTime = resTime - reqTime   
+  console.log(`${reqTime.toLocaleString('en-US')} | ${req.method} from ${req.path} | total time:${runTime}`)  
+})
+  next()
 })
 
 app.get('/', (req, res) => {
